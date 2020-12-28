@@ -27,8 +27,7 @@ function RunSync{
 	$options    = @("/R:3","/W:10","/NP","/NDL","/LOG:$logfile")
 	$cmdArgs    = @("$source","$dest",$what,$options)
 	
-	$net = new-object -ComObject WScript.Network
-	$net.MapNetworkDrive("u:", $source, $false, "administrator", "bsiDOSadmin.1")
+	net use $source /user:administrator bsiDOSadmin.1
 	
 	robocopy @cmdArgs
 	return $lastexitcode
