@@ -54,7 +54,7 @@ function WriteLog{
 
 $branch	     = "TESTING"
 $hostname    = "10.1.7.182"
-$source      = "\\$hostname\d$\TESTBPKB1"
+$source      = "\\$hostname\d$\TESTBPKB"
 $dest        = "D:\BPKB\00.TEST"
 
 $PingResult = ValidateHost -hostname $hostname
