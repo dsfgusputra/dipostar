@@ -27,8 +27,6 @@ function RunSync{
 	$options    = @("/R:3","/W:10","/NP","/NDL","/LOG:$logfile")
 	$cmdArgs    = @("$source","$dest",$what,$options)
 	
-	net use $source /user:administrator bsiDOSadmin.1
-	
 	robocopy @cmdArgs
 	return $lastexitcode
 }
@@ -56,7 +54,7 @@ function WriteLog{
 
 $branch	     = "TESTING"
 $hostname    = "10.1.7.182"
-$source      = "\\$hostname\d$\TESTBPKB"
+$source      = "\\$hostname\d$\TESTBPKB1"
 $dest        = "D:\BPKB\00.TEST"
 
 $PingResult = ValidateHost -hostname $hostname
