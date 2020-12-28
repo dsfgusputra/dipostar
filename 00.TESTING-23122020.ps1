@@ -27,6 +27,8 @@ function RunSync{
 	$options    = @("/R:3","/W:10","/NP","/NDL","/LOG:$logfile")
 	$cmdArgs    = @("$source","$dest",$what,$options)
 	
+	Write-Host $dest
+	
 	robocopy @cmdArgs
 	return $lastexitcode
 }
