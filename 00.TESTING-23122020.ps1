@@ -27,7 +27,9 @@ function RunSync{
 	$options    = @("/R:3","/W:10","/NP","/NDL","/LOG:$logfile")
 	$cmdArgs    = @("$source","$dest",$what,$options)
 	
-	Write-Host $dest
+	Write-Host $source
+	net use $source /user:DIPOSTAR\monitoring.service Dsfjho.1
+	Write-Host sudah login
 	
 	robocopy @cmdArgs
 	return $lastexitcode
