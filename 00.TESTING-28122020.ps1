@@ -49,7 +49,7 @@ function WriteLog{
 	}
 	$log_date + "-[SUCCESS]Moving BPKB data from " + $source + " to " +  $dest + " finished with respond code : " + $lastexitcode | out-file -Filepath $logfile_status -append
 	$log_date + "-[INFO]" + $message | out-file -Filepath $logfile_status -append
-	
+	exit
 }
 ##########################################################################################################################################################
 
