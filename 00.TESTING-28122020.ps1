@@ -7,6 +7,7 @@ $messageTable = @{
 	5 = "Some files were copied. Some files were mismatched. No failure was met."
 	6 = "Additional files and mismatched files exist. No files were copied and no failures were met. Which means that the files already exist in the destination directory."
 	7 = "Files were copied, a file mismatch was present, and additional files were present."
+	8 = "Some files or directories could not be copied."
 	16 = "Several files didn't copy."
 }
 
