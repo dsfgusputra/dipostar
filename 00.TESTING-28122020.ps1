@@ -42,7 +42,7 @@ function WriteLog{
 	}
 	
 	$message = $messageTable[$RespondCode]
-	if($RespondCode -eq 16){
+	if($RespondCode -gt 7){
 		$log_date + "-[FAILED]Moving BPKB data from " + $source + " to " +  $dest + " finished with respond code : " + $lastexitcode | out-file -Filepath $logfile_status -append
 		$log_date + "-[INFO]" + $message | out-file -Filepath $logfile_status -append
 		exit
