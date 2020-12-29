@@ -1,23 +1,67 @@
-﻿<#
-#=========================================================================== 
-# Script: GPSync-BPKB.ps1  
-# Created With:ISE 3.0  
-# Author: Gus Putra Ismaulana 
-# Date: 11/17/2020 15:04:50  
-# Organization:  ITD
-# File Name: Sync BPKB Files to GCP
-# Comments:  
-#===========================================================================      
-#> 
+$messageTable = @{
+    0 = "No files were copied. No failure was met. No files were mismatched. The files already exist in the destination directory; so the copy operation was skipped."
+    1 = "All files were copied successfully."
+    2 = "There are some additional files in the destination directory that aren't present in the source directory. No files were copied."
+	3 = "Some files were copied. Additional files were present. No failure was met."
+	4 = "Some Mismatched files or directories were detected. Examine the output log. Housekeeping might be required."
+	5 = "Some files were copied. Some files were mismatched. No failure was met."
+	6 = "Additional files and mismatched files exist. No files were copied and no failures were met. Which means that the files already exist in the destination directory."
+	7 = "Files were copied, a file mismatch was present, and additional files were present."
+	8 = "Some files or directories could not be copied."
+	16 = "Several files didn't copy."
+}
+
+function ValidateHost{
+	Param($hostname)
+	if(!(Test-Connection -BufferSize 32 -Count 1 -ComputerName $hostname -Quiet)) {
+		return $FALSE
+	}
+	return $TRUE
+}
+
+function RunSync{
+	Param($source,$dest)
+	
+	$date       = Get-Date -UFormat "%Y%m%d-%s"
+	$Logfile    = "D:\SYNCLOG\$branch-$date.txt"
+	$what       = @("/MOV","/FFT","/Z","/E")
+	$options    = @("/R:3","/W:10","/NP","/NDL","/LOG:$logfile")
+	$cmdArgs    = @("$source","$dest",$what,$options)
+	
+	robocopy @cmdArgs
+	return $lastexitcode
+}
+
+function WriteLog{
+	Param($branch,$hostname,$PingResult,$RespondCode,$source,$dest)
+	$log_date 			= Get-Date -UFormat "%Y%m%d-%R:%S"
+	$logfile_status 	= "D:\STATUSLOG\BPKB-StatusLog.log"
+	if($PingResult -eq $FALSE){
+		$log_date + "-[ERROR]The remote computer " + $hostname +" for " + $branch + " is Offline." | out-file -Filepath $logfile_status -append
+		exit
+	}
+	
+	$message = $messageTable[$RespondCode]
+	if($RespondCode -gt 7){
+		$log_date + "-[FAILED]Moving BPKB data from " + $source + " to " +  $dest + " finished with respond code : " + $lastexitcode | out-file -Filepath $logfile_status -append
+		$log_date + "-[INFO]" + $message | out-file -Filepath $logfile_status -append
+		exit
+	}
+	$log_date + "-[SUCCESS]Moving BPKB data from " + $source + " to " +  $dest + " finished with respond code : " + $lastexitcode | out-file -Filepath $logfile_status -append
+	$log_date + "-[INFO]" + $message | out-file -Filepath $logfile_status -append
+	exit
+}
+##########################################################################################################################################################
 
 $branch	     = "PADANG-SIDEMPUAN"
-$source      = "\\PDSDSFPCLGL001\C$\Users\zulhajji\Desktop\BPKB - 23 PADANG SIDEMPUAN"
+$hostname    = "PDSDSFPCLGL001"
+$source      = "\\$hostname\C$\Users\zulhajji\Desktop\BPKB - 23 PADANG SIDEMPUAN"
 $dest        = "D:\BPKB\BPKB - 23 PADANG SIDEMPUAN"
-$date        = Get-Date -UFormat "%Y%m%d-%s"
-$Logfile     = "D:\SYNCLOG\$branch-$date.txt"
-$what        = @("/MOV","/FFT","/Z","/E")
-$options     = @("/R:3","/W:10","/NP","/NDL","/LOG:$logfile")
-$cmdArgs     = @("$source","$dest",$what,$options) 
 
-## Kick off the copy with options defined 
-robocopy @cmdArgs
+$PingResult = ValidateHost -hostname $hostname
+if($PingResult -eq $FALSE){
+	WriteLog -branch $branch -hostname $hostname -PingResult $PingResult
+}
+
+$RespondCode = RunSync -source $source -dest $dest
+WriteLog -branch $branch -hostname $hostname -RespondCode $RespondCode -source $source -dest $dest
