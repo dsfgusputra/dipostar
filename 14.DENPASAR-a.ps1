@@ -66,16 +66,3 @@ if($PingResult -eq $FALSE){
 $RespondCode = RunSync -source $source -dest $dest
 WriteLog -branch $branch -hostname $hostname -RespondCode $RespondCode -source $source -dest $dest
 
-##########################################################################################################################################################
-
-$branch	     = "DENPASAR"
-$source      = "\\DPSDSFPCLGL001\c$\Users\Liana Hematang\Desktop\BPKB - 14b DENPASAR"
-$dest        = "D:\BPKB\BPKB - 14 DENPASAR"
-$date        = Get-Date -UFormat "%Y%m%d-%s"
-$Logfile     = "D:\SYNCLOG\$branch-$date.txt"
-$what        = @("/MOV","/FFT","/Z","/E")
-$options     = @("/R:3","/W:10","/NP","/NDL","/LOG:$logfile")
-$cmdArgs     = @("$source","$dest",$what,$options) 
-
-## Kick off the copy with options defined 
-robocopy @cmdArgs
