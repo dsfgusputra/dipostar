@@ -56,7 +56,7 @@ function WriteLog{
 $branch	     = "BEKASI"
 $hostname    = "BKSDSFPCLGL002"
 $source      = "\\$hostname\c$\Users\raras.nadifah\Desktop\BPKB – 36 BEKASI"
-$dest        = "D:\BPKB\BPKB - 02 Medan"
+$dest        = "D:\BPKB\BPKB - 36 BEKASI"
 
 $PingResult = ValidateHost -hostname $hostname
 if($PingResult -eq $FALSE){
@@ -65,4 +65,3 @@ if($PingResult -eq $FALSE){
 
 $RespondCode = RunSync -source $source -dest $dest
 WriteLog -branch $branch -hostname $hostname -RespondCode $RespondCode -source $source -dest $dest
-exit
