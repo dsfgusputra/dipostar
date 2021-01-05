@@ -53,10 +53,10 @@ function WriteLog{
 }
 ##########################################################################################################################################################
 
-$branch	     = "BEKASI"
-$hostname    = "BKSDSFPCLGL002"
-$source      = "\\$hostname\c$\Users\raras.nadifah\Desktop\BPKB – 36 BEKASI"
-$dest        = "D:\BPKB\BPKB - 36 BEKASI"
+$branch	= "BEKASI"
+$hostname	= "BKSDSFPCLGL002"
+$source	= "\\$hostname\c$\Users\raras.nadifah\Desktop\BPKB – 36 BEKASI"
+$dest	= "D:\BPKB\BPKB - 36 BEKASI"
 
 $PingResult = ValidateHost -hostname $hostname
 if($PingResult -eq $FALSE){
