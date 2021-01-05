@@ -65,3 +65,4 @@ if($PingResult -eq $FALSE){
 
 $RespondCode = RunSync -source $source -dest $dest
 WriteLog -branch $branch -hostname $hostname -RespondCode $RespondCode -source $source -dest $dest
+exit
