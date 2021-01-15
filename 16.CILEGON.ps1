@@ -54,8 +54,8 @@ function WriteLog{
 ##########################################################################################################################################################
 
 $branch	     = "CILEGON"
-$hostname    = "CLGDSFNBLGL002.corp.dipostar.com"
-$source      = "\\$hostname\c$\Users\Shinta Fitria\Desktop\BPKB - 16 CILEGON"
+$hostname    = "CLGDSFNBLGL001"
+$source      = "\\$hostname\c$\Users\dessy indriyani\Desktop\BPKB - 16 CILEGON"
 $dest        = "D:\BPKB\BPKB - 16 CILEGON"
 
 $PingResult = ValidateHost -hostname $hostname
