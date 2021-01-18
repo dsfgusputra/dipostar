@@ -15,4 +15,4 @@ mkdir D:\BACKUPLOG\%SUBFILENAME%
 
 ECHO RUNNING BACKUP PROGRESS ON %CUR_YYYY%%CUR_MM%%CUR_DD%
 
-gsutil -m rsync -r D:\BPKB\ gs://bpkb-backup > D:\BACKUPLOG\%SUBFILENAME%\BACKUP_%SUBFILENAME%.log
+gsutil -m rsync -r D:\BPKB\ gs://bpkb-backup 2> D:\BACKUPLOG\%SUBFILENAME%\BACKUP_%SUBFILENAME%.log
