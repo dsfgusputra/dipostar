@@ -54,7 +54,7 @@ function WriteLog{
 ##########################################################################################################################################################
 
 $branch	     = "MAKASSAR"
-$hostname    = "Mksdsfpclgl001"
+$hostname    = "mksdsfnblgl001"
 $source      = "\\$hostname\c$\Users\Albert Hutagalung\Desktop\BPKB - 17 MAKASSAR"
 $dest        = "D:\BPKB\BPKB - 17 MAKASSAR"
 
